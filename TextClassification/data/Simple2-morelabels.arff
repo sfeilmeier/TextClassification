@@ -1,0 +1,6 @@
+@data
+
+Chinese:2 Beijing:1 # yes  
+Chinese:2 Shanghai:1 # maybe yes
+Chinese:1 Macao:1 # yes
+Tokyo:1 Japan:1 Chinese:1 # no

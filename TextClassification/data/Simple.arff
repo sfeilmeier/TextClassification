@@ -1,0 +1,35 @@
+#Samples 1
+#Attributes 2
+#Topics 19
+
+@attribute 0 1.0
+@attribute 3 2.0
+@topic c22  12
+@topic c31  4
+@topic c15  10
+@topic c152  5
+@topic c13  2
+@topic c34  3
+@topic c11  6
+@topic c313  2
+@topic c18  3
+@topic c181  3
+@topic c33  3
+@topic c151  5
+@topic c41  1
+@topic c21  1
+@topic c1511  2
+@topic c12  1
+@topic gcat  1
+@topic gcrim  1
+@topic c24  1
+
+@data
+
+attribute0:1 attribute1:4 # c22  
+attribute0:2 # c22  
+attribute0:1 attribute1:1 # c15  
+attribute0:1 # c13  
+attribute0:1 # c22  
+attribute0:1 attribute1:2 # c11  
+attribute0:1 # c11

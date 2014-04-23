@@ -1,0 +1,133 @@
+#Samples 7
+#Attributes 100
+#Topics 19
+
+@attribute 0 1.0
+@attribute 3 2.0
+@attribute 4 3.0
+@attribute 5 4.0
+@attribute 7 5.0
+@attribute 10 6.0
+@attribute 11 7.0
+@attribute 12 8.0
+@attribute 14 9.0
+@attribute 15 10.0
+@attribute 16 11.0
+@attribute 20 12.0
+@attribute 21 13.0
+@attribute 22 14.0
+@attribute 23 15.0
+@attribute 27 16.0
+@attribute 28 17.0
+@attribute 29 18.0
+@attribute 32 19.0
+@attribute 38 20.0
+@attribute 39 21.0
+@attribute 42 22.0
+@attribute 44 23.0
+@attribute 45 24.0
+@attribute 46 25.0
+@attribute 50 26.0
+@attribute 51 27.0
+@attribute 52 28.0
+@attribute 54 29.0
+@attribute 64 30.0
+@attribute 77 31.0
+@attribute 78 32.0
+@attribute 82 33.0
+@attribute 84 34.0
+@attribute 87 35.0
+@attribute 91 36.0
+@attribute 92 37.0
+@attribute 93 38.0
+@attribute 96 39.0
+@attribute 97 40.0
+@attribute 99 41.0
+@attribute 100 42.0
+@attribute 101 43.0
+@attribute 103 44.0
+@attribute 108 45.0
+@attribute 122 46.0
+@attribute 123 47.0
+@attribute 124 48.0
+@attribute 125 49.0
+@attribute 126 50.0
+@attribute 134 51.0
+@attribute 145 52.0
+@attribute 163 53.0
+@attribute 171 54.0
+@attribute 172 55.0
+@attribute 183 56.0
+@attribute 195 57.0
+@attribute 196 58.0
+@attribute 197 59.0
+@attribute 207 60.0
+@attribute 209 61.0
+@attribute 210 62.0
+@attribute 226 63.0
+@attribute 231 64.0
+@attribute 245 65.0
+@attribute 262 66.0
+@attribute 292 67.0
+@attribute 293 68.0
+@attribute 294 69.0
+@attribute 301 70.0
+@attribute 306 71.0
+@attribute 307 72.0
+@attribute 314 73.0
+@attribute 318 74.0
+@attribute 328 75.0
+@attribute 332 76.0
+@attribute 340 77.0
+@attribute 346 78.0
+@attribute 349 79.0
+@attribute 354 80.0
+@attribute 359 81.0
+@attribute 360 82.0
+@attribute 367 83.0
+@attribute 381 84.0
+@attribute 387 85.0
+@attribute 391 86.0
+@attribute 418 87.0
+@attribute 419 88.0
+@attribute 452 89.0
+@attribute 462 90.0
+@attribute 465 91.0
+@attribute 510 92.0
+@attribute 579 93.0
+@attribute 623 94.0
+@attribute 671 95.0
+@attribute 696 96.0
+@attribute 697 97.0
+@attribute 720 98.0
+@attribute 990 99.0
+@attribute 1003 100.0
+@topic c22  12
+@topic c31  4
+@topic c15  10
+@topic c152  5
+@topic c13  2
+@topic c34  3
+@topic c11  6
+@topic c313  2
+@topic c18  3
+@topic c181  3
+@topic c33  3
+@topic c151  5
+@topic c41  1
+@topic c21  1
+@topic c1511  2
+@topic c12  1
+@topic gcat  1
+@topic gcrim  1
+@topic c24  1
+
+@data
+
+0:1 1:4 2:4 3:1 4:9 5:1 6:10 7:5 8:1 9:1 10:2 11:1 12:1 13:2 14:1 15:3 16:3 17:2 18:3 19:1 20:1 21:1 22:1 23:2 24:1 25:2 26:1 27:1 28:1 29:1 30:1 31:1 32:1 # c22  
+0:2 2:3 3:1 4:3 5:4 8:4 11:10 12:2 13:2 14:14 15:9 16:2 17:14 18:1 19:1 20:8 21:2 22:1 23:1 25:3 26:4 27:1 28:8 31:1 33:4 34:2 35:3 36:2 37:1 38:5 39:2 40:2 41:2 42:1 43:1 44:1 45:1 46:3 47:1 48:1 49:2 50:1 51:5 52:1 53:1 54:1 55:1 56:3 57:4 58:4 59:1 60:1 61:1 # c22 c31  
+0:1 1:1 2:1 3:2 4:1 7:2 8:2 10:2 11:1 12:1 13:4 14:2 15:4 17:12 18:2 20:2 22:7 23:1 28:1 41:1 46:1 58:1 59:3 61:1 62:1 63:4 64:1 65:1 66:1 67:1 68:1 # c15 c152  
+0:1 2:1 3:1 4:6 5:2 7:5 8:5 10:1 11:12 12:1 13:2 14:16 15:7 16:1 17:16 18:1 19:2 20:3 21:1 22:1 23:2 25:3 26:3 28:10 31:1 32:2 33:1 34:1 35:2 37:1 38:3 39:3 40:1 41:3 43:1 44:3 45:2 46:2 47:3 49:1 50:1 51:5 52:1 53:1 54:1 56:1 57:3 58:3 60:1 61:1 66:2 67:1 68:3 69:3 70:1 71:2 72:1 73:2 74:2 75:1 76:1 77:1 78:2 79:1 80:1 81:1 82:1 83:1 84:2 85:1 # c13 c34  
+0:1 3:1 4:4 12:1 13:1 14:1 16:2 30:1 33:1 42:1 51:2 60:1 82:1 # c22  
+0:1 1:2 3:1 4:1 6:3 7:6 8:4 9:1 11:1 12:2 13:4 14:2 15:10 17:22 21:2 22:15 23:3 24:2 26:2 27:2 28:3 29:1 30:2 33:1 38:1 40:1 41:6 42:1 43:1 46:4 47:1 49:2 53:1 54:1 55:1 59:2 61:1 65:1 66:1 67:2 77:1 86:2 87:7 88:2 89:2 90:3 # c11 c22 c31 c313  
+0:1 3:1 7:4 13:2 17:2 23:1 31:3 32:1 46:4 55:2 79:2 80:2 91:1 # c11 c18 c181  
