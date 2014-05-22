@@ -9,7 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.Set;
 
-public class TestApp {
+public class NaiveBayesTestApp {
 
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
 		// parameters:
@@ -17,9 +17,10 @@ public class TestApp {
 		String trainingFile, testingFile;
 		
 		// choose training-/testing-set
-		trainingFile = "data/MultiClass_Training_SVM_100.0.arff"; testingFile = "data/MultiClass_Testing_SVM_100.0.arff"; featuresMin=1; featuresStep=1; featuresMax=101;
-		//trainingFile = "data/MultiClass_Training_SVM_1309.0.arff"; testingFile = "data/MultiClass_Testing_SVM_1309.0.arff"; featuresMin=10; featuresStep=100; featuresMax=1311; 
-
+		//trainingFile = "data/bayestest/MultiClass_Training_SVM_100.0.arff"; testingFile = "data/bayestest/MultiClass_Testing_SVM_100.0.arff"; featuresMin=1; featuresStep=1; featuresMax=101;
+		//trainingFile = "data/bayestest/MultiClass_Training_SVM_1309.0.arff"; testingFile = "data/bayestest/MultiClass_Testing_SVM_1309.0.arff"; featuresMin=10; featuresStep=100; featuresMax=1311;
+		trainingFile = "data/tmp/output-training.arff"; testingFile = "data/tmp/output-testing.arff"; featuresMin=100; featuresStep=100; featuresMax=501;
+		
 		NaiveBayes nb = new NaiveBayes( NaiveBayesFactory.readArffFile(trainingFile) );
 		LinkedList<LabeledRecord> testingRecords = NaiveBayesFactory.readArffFile(testingFile);
 		LinkedList<LabeledRecord> trainingRecords = NaiveBayesFactory.readArffFile(trainingFile);
