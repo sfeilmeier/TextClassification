@@ -1,6 +1,7 @@
 package wikipediaClassification;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -32,48 +33,6 @@ import org.tartarus.snowball.SnowballStemmer;
 public class PageFactory {
 	// at which percentage should we split training and testing data?
 	private static final double TRAINING_DATA_PERCENT = 0.75;
-	
-	/**
-	 * Get for a each category in a list a certain amount of pages belonging to the category.
-	 * Number of pages may be limited by maxIdsPerCategory-parameter, to shorten total execution time of the function.
-	 * 
-	 * @param pathCategorylinks		Path to categorylinks.sql file from Wikipedia 
-	 * @param categoryTitles		List of category titles
-	 * @param maxIdsPerCategory		limit number of pages
-	 * @return
-	 * @throws FileNotFoundException
-	 * @throws IOException
-	 */
-	public static Map<String, Set<Integer>> getLinkedPageIdMap(String pathCategorylinks, Set<String> categoryTitles) throws FileNotFoundException, IOException {
-		Map<String, Set<Integer>> returnMap = new HashMap<String, Set<Integer>>();
-		for(String categoryTitle : categoryTitles) {
-			returnMap.put(categoryTitle, new HashSet<Integer>());
-		}
-		
-		String marker = "INSERT INTO `categorylinks` VALUES";
-		Pattern tuplePattern = Pattern.compile("\\((?<from>\\d+?),\'(?<to>\\S+?)\',.+?\\)");
-		
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(pathCategorylinks)))) {
-			String line;
-			int counter=0;
-			while( (line = br.readLine()) != null && categoryTitles.size()>0) { 
-    			counter++;
-    			if(counter % 10 == 0) {
-					System.out.print(".");
-				}
-				if(line.startsWith(marker)) {	// search for "INSERT INTO `categorylinks` VALUES"
-					Matcher matcher = tuplePattern.matcher(line.substring(marker.length()));
-	    			while (matcher.find()) {
-	    				if(categoryTitles.contains(matcher.group("to"))) {
-	    					Set<Integer> idSet = returnMap.get(matcher.group("to"));
-	    					idSet.add(Integer.parseInt(matcher.group("from")));
-	    				}
-	    		    }
-				}
-			}
-		}
-		return returnMap;
-	}
 
 	/*
 	 * Enum for the current element in the xml file
@@ -387,89 +346,84 @@ public class PageFactory {
 	}
 	
 	/*
-	 * Write arff file
+	 * Write arff file: describing a complete set of pages, prepared for usage in naiveBayes algorithm
 	 */
 	public static void writeArffFile(Set<Page> pageSet, SortedSet<String> globalWordSet, Set<Category> categorySet, String pathArffFile, ArffFileMode arffFileMode) throws IOException {
-		try (FileWriter fw = new FileWriter(pathArffFile)) {
-			fw.write(generateArffContent(pageSet, globalWordSet, categorySet, arffFileMode));
-		}
-	}
-	
-	/* 
-	 * Generate contents of arff file, describing a complete set of pages, prepared for usage in naiveBayes algorithm
-	 */
-	public static String generateArffContent(Set<Page> pageSet, SortedSet<String> globalWordSet, Set<Category> categorySet, ArffFileMode arffFileMode) {
-		String ret = "";
-		int limitIndex = (int) Math.floor(pageSet.size()*TRAINING_DATA_PERCENT);
-		
-		// print header
-		ret += "#Samples ";
-		switch(arffFileMode) {
-		case ALL_RECORDS:
-			ret += pageSet.size();
-			break;
-		case TRAINING_DATA_ONLY:
-			ret += limitIndex;
-			System.out.println("\nTraining-Data: " + limitIndex);
-			break;
-		case TESTING_DATA_ONLY:
-			ret += pageSet.size() - limitIndex;
-			System.out.println("Testing-Data: " + (pageSet.size() - limitIndex));
-			break;
-		}
-		ret += "\n";
-		ret += "#Attributes " + globalWordSet.size() + "\n";
-		ret += "#Topics " + categorySet.size() + "\n";
-		ret += "\n";
-		
-		// print words
-		{
-			int i=0;
-			for(String word : globalWordSet) {
-				ret += "@attribute " + word + " " + 0 + " " + ++i +"\n";
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(pathArffFile))) {
+			//fw.write(generateArffContent(pageSet, globalWordSet, categorySet, arffFileMode));
+
+			int limitIndex = (int) Math.floor(pageSet.size()*TRAINING_DATA_PERCENT);
+			
+			// print header
+			bw.write("#Samples "); 
+			switch(arffFileMode) {
+			case ALL_RECORDS:
+				bw.write(pageSet.size());
+				break;
+			case TRAINING_DATA_ONLY:
+				bw.write(limitIndex);
+				System.out.println("\nTraining-Data: " + limitIndex);
+				break;
+			case TESTING_DATA_ONLY:
+				bw.write(pageSet.size() - limitIndex);
+				System.out.println("Testing-Data: " + (pageSet.size() - limitIndex));
+				break;
+			}
+			bw.newLine();
+			bw.write("#Attributes " + globalWordSet.size()); bw.newLine();
+			bw.write("#Topics " + categorySet.size()); bw.newLine();
+			bw.newLine();
+			
+			// print words
+			{
+				int i=0;
+				for(String word : globalWordSet) {
+					bw.write("@attribute " + word + " " + 0 + " " + ++i); bw.newLine();
+				}
+			}
+			
+			// print categories
+			for(Category category : categorySet) {
+				bw.write("@topic " + category.getTitle()); bw.newLine();
+			}
+			bw.newLine();
+					
+			// required for printing word-id
+//			String[] globalWordMapKeys = new String[globalWordSet.size()];
+//			int pos = 0;
+//			for (String key : globalWordSet) {
+//				globalWordMapKeys[pos++] = key;
+//			}
+			
+			// print data
+			bw.write("@data"); bw.newLine(); bw.newLine();
+			{
+				int i=0;
+				PageLoop: for(Page page : pageSet) {
+					i++;
+					switch(arffFileMode) {
+					case ALL_RECORDS:
+						break;
+					case TRAINING_DATA_ONLY:
+						if(i > limitIndex) {
+							break PageLoop;
+						}
+						break;
+					case TESTING_DATA_ONLY:
+						if(i <= limitIndex) {
+							continue PageLoop;
+						}
+						break;
+					}
+					// write page title as comment
+					bw.write("# " + page.title); bw.newLine();
+					for(String word : page.wordCountMap.keySet()) {
+						bw.write(word + ":" + page.wordCountMap.get(word) + " "); // print word
+						//bw.write(Arrays.binarySearch(globalWordMapKeys, word) + ":" + page.wordCountMap.get(word) + " "); // print word-id
+					}
+					bw.write("# " + page.category); bw.newLine();
+				}
 			}
 		}
-		
-		// print categories
-		for(Category category : categorySet) {
-			ret += "@topic " + category.getTitle() + "\n";
-		}
-		ret += "\n";
-				
-		// required for printing word-id
-		String[] globalWordMapKeys = new String[globalWordSet.size()];
-		int pos = 0;
-		for (String key : globalWordSet) {
-			globalWordMapKeys[pos++] = key;
-		}
-		
-		// print data
-		ret += "@data\n\n";
-		{
-			int i=0;
-			PageLoop: for(Page page : pageSet) {
-				i++;
-				switch(arffFileMode) {
-				case ALL_RECORDS:
-					break;
-				case TRAINING_DATA_ONLY:
-					if(i > limitIndex) {
-						break PageLoop;
-					}
-					break;
-				case TESTING_DATA_ONLY:
-					if(i <= limitIndex) {
-						continue PageLoop;
-					}
-					break;
-				}
-				for(String word : page.wordCountMap.keySet()) {
-					//ret += word + ":" + page.wordCountMap.get(word) + " "; // print word
-					ret += Arrays.binarySearch(globalWordMapKeys, word) + ":" + page.wordCountMap.get(word) + " "; // print word-id
-				}
-				ret += "# " + page.category + "\n";
-			}
-		}
-		return ret;
 	}
 }

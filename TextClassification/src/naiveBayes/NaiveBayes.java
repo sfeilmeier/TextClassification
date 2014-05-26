@@ -240,7 +240,7 @@ public class NaiveBayes {
 			return true;
 		} else {
 			// wrong prediction
-			//System.out.println("✖    predicted '" + maxProbabilityLabel.getName() + "' instead of '" + record.getLabels() + "'");
+//			System.out.println("✖    '" + record.getTitle() + "' - predicted '" + maxProbabilityLabel.getName() + "' instead of '" + record.getLabels() + "'");
 			return false;
 		}
 	}

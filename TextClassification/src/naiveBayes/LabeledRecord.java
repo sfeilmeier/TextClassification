@@ -15,8 +15,8 @@ public class LabeledRecord extends Record {
 		return labels;
 	}
 	
-	public LabeledRecord(HashMap<String, Integer> values, HashSet<String> labels) {
-		super(values);
+	public LabeledRecord(HashMap<String, Integer> values, HashSet<String> labels, String title) {
+		super(values, title);
 		this.labels = labels;
 	}
 	

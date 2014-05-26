@@ -24,10 +24,16 @@ public class NaiveBayesFactory {
 		try {
 			String line;
 			String lastKeyword = "";
+			String recordTitle = "";
 			while( (line = br.readLine()) != null ) {
-				if(line.isEmpty() | line.startsWith("#")) {
-					// Empty or comment -> ignore
-					
+				if(line.isEmpty()) {
+					// Empty -> ignore
+				} else if(line.startsWith("#")) {
+					// comment -> ignore if we are not in @data
+					if(lastKeyword == "@data") {
+						// in @data a line starting with "#" is a document title
+						recordTitle = line.substring(2);
+					}
 				} else if(line.startsWith("@attribute")){
 					// Found attribute -> ignore
 					lastKeyword = "@attribute";
@@ -67,8 +73,9 @@ public class NaiveBayesFactory {
 							values.put(attribute, Integer.parseInt(fieldS[1]));
 						}
 					}
-					LabeledRecord record = new LabeledRecord(values, labels);
+					LabeledRecord record = new LabeledRecord(values, labels, recordTitle);
 					records.add(record);
+					recordTitle = "";
 				}
 			}
 		} catch (IOException e) {

@@ -7,11 +7,19 @@ public class Category {
 	private int id; 		// internal id used by Wikipedia
 	private int pages; 		// number of pages/subcategories below this category
 	private String title; 	// category-title in Wikipedia
-	public Category(int id, String title, int pages) {
+	private String parentCategoryTitle;	// title of the parent category
+	public Category(int id, String title, String parentCategoryTitle, int pages) {
 		super();
 		this.title = title;
 		this.id = id;
 		this.pages = pages;
+		this.parentCategoryTitle = parentCategoryTitle;
+	}
+	public String getParentCategoryTitle() {
+		return parentCategoryTitle;
+	}
+	public void setParentCategoryTitle(String parentCategoryTitle) {
+		this.parentCategoryTitle = parentCategoryTitle;
 	}
 	public Category(String title) {
 		this.title = title;
@@ -36,6 +44,7 @@ public class Category {
 	}
 	@Override
 	public String toString() {
-		return "Category [title=" + title + ", id=" + id + "]";
+		return "Category [id=" + id + ", pages=" + pages + ", title=" + title
+				+ ", parentCategoryTitle=" + parentCategoryTitle + "]";
 	}
 }

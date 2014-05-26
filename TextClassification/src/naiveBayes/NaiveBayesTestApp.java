@@ -19,7 +19,7 @@ public class NaiveBayesTestApp {
 		// choose training-/testing-set
 		//trainingFile = "data/bayestest/MultiClass_Training_SVM_100.0.arff"; testingFile = "data/bayestest/MultiClass_Testing_SVM_100.0.arff"; featuresMin=1; featuresStep=1; featuresMax=101;
 		//trainingFile = "data/bayestest/MultiClass_Training_SVM_1309.0.arff"; testingFile = "data/bayestest/MultiClass_Testing_SVM_1309.0.arff"; featuresMin=10; featuresStep=100; featuresMax=1311;
-		trainingFile = "data/tmp/output-training.arff"; testingFile = "data/tmp/output-testing.arff"; featuresMin=100; featuresStep=100; featuresMax=501;
+		trainingFile = "data/tmp/output-training.arff"; testingFile = "data/tmp/output-testing.arff"; featuresMin=2000; featuresStep=1; featuresMax=2001;
 		
 		NaiveBayes nb = new NaiveBayes( NaiveBayesFactory.readArffFile(trainingFile) );
 		LinkedList<LabeledRecord> testingRecords = NaiveBayesFactory.readArffFile(testingFile);
