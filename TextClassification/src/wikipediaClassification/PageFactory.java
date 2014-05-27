@@ -348,7 +348,7 @@ public class PageFactory {
 	/*
 	 * Write arff file: describing a complete set of pages, prepared for usage in naiveBayes algorithm
 	 */
-	public static void writeArffFile(Set<Page> pageSet, SortedSet<String> globalWordSet, Set<Category> categorySet, String pathArffFile, ArffFileMode arffFileMode) throws IOException {
+	public static void writeArffFile(Set<Page> pageSet, SortedSet<String> globalWordSet, Map<String, Set<String>> categoryTitleMap, String pathArffFile, ArffFileMode arffFileMode) throws IOException {
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(pathArffFile))) {
 			//fw.write(generateArffContent(pageSet, globalWordSet, categorySet, arffFileMode));
 
@@ -371,7 +371,7 @@ public class PageFactory {
 			}
 			bw.newLine();
 			bw.write("#Attributes " + globalWordSet.size()); bw.newLine();
-			bw.write("#Topics " + categorySet.size()); bw.newLine();
+			bw.write("#Topics " + categoryTitleMap.size()); bw.newLine();
 			bw.newLine();
 			
 			// print words
@@ -383,8 +383,8 @@ public class PageFactory {
 			}
 			
 			// print categories
-			for(Category category : categorySet) {
-				bw.write("@topic " + category.getTitle()); bw.newLine();
+			for(String categoryTitle : categoryTitleMap.keySet()) {
+				bw.write("@topic " + categoryTitle); bw.newLine();
 			}
 			bw.newLine();
 					
