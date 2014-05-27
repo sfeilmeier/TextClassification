@@ -662,8 +662,8 @@ public class WikipediaClassificationTestApp {
 			 */
 			LOG.info("Generating arff-file...");
 			//System.out.println(PageFactory.generateArffContent(pageSet, globalWordSet, categorySet));
-			PageFactory.writeArffFile(pageSet, globalWordSet, categorySet, pathArffTrainingFile, ArffFileMode.TRAINING_DATA_ONLY);
-			PageFactory.writeArffFile(pageSet, globalWordSet, categorySet, pathArffTestingFile, ArffFileMode.TESTING_DATA_ONLY);
+			PageFactory.writeArffFile(pageSet, globalWordSet, categoryTitleMap, pathArffTrainingFile, ArffFileMode.TRAINING_DATA_ONLY);
+			PageFactory.writeArffFile(pageSet, globalWordSet, categoryTitleMap, pathArffTestingFile, ArffFileMode.TESTING_DATA_ONLY);
 			
 			LOG.info("Finished!");
 		} finally {
